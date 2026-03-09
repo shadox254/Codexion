@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:02:57 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/09 11:36:35 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/09 12:29:55 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static void	create_coders(t_data *data);
 int create_data(t_data *data, char **av)
 {
 	if (args_verif(av) == 0)
-		return (1);
+		return (0);
 	fill_rules(&data->rules, av);
 	create_coders(data);
-	return (0);
+	return (1);
 }
 
 static void	create_coders(t_data *data)
@@ -36,6 +36,7 @@ static void	create_coders(t_data *data)
 	}
 	while (count < data->rules.number_of_coders)
 	{
+		data->coders[count].data = data;
 		data->coders[count].id = count + 1;
 		data->coders[count].nbr_of_compilations = 0;
 		data->coders[count].finished = 0;

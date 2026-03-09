@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:21 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/09 11:25:40 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/09 12:31:13 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 # include <stdio.h>
 # include <limits.h>
 # include <string.h>
+# include <pthread.h>
+
+# define TAKE_DONGLE		"[%u] %i has taken a dongle"
+# define COMPILING			"[%u] %i is compiling"
+# define DEBUGGING			"[%u] %i is denugging"
+# define REFACTORING		"[%u] %i is refactoring"
+# define BURNOUT			"[%u] %i burned out"
 
 # define USAGE_ERROR		"Error, invalid arguments. Usage: \"./codexion \
 number_of_coders time_to_burnout time_to_compile time_to_debug \
@@ -36,14 +43,14 @@ typedef struct s_rules	t_rules;
 
 typedef struct s_rules
 {
-	unsigned int		number_of_coders;
-	unsigned int		time_to_burnout;
-	unsigned int		time_to_compile;
-	unsigned int		time_to_debug;
-	unsigned int		time_to_refactor;
-	unsigned int		number_of_compiles_required;
-	unsigned int		dongle_cooldown;
-	char				*scheduler;
+	unsigned int	number_of_coders;
+	unsigned int	time_to_burnout;
+	unsigned int	time_to_compile;
+	unsigned int	time_to_debug;
+	unsigned int	time_to_refactor;
+	unsigned int	number_of_compiles_required;
+	unsigned int	dongle_cooldown;
+	char			*scheduler;
 }	t_rules;
 
 typedef struct s_coder
@@ -58,14 +65,17 @@ typedef struct s_coder
 
 typedef struct s_dongle
 {
-	t_data	*data;
-	int		cooldown;
+	t_data			*data;
+	int				cooldown;
+	pthread_mutex_t	lock;
 }	t_dongle;
 
 typedef struct s_data
 {
-	t_rules	rules;
-	t_coder	*coders;
+	t_rules			rules;
+	t_coder			*coders;
+	t_dongle		*dongles;
+	pthread_mutex_t	print_lock;
 }	t_data;
 
 /* SRC/CODEXION */
@@ -88,5 +98,6 @@ void	print_coders(t_data data);
 
 /* SRC/UTILS/ERROR */
 void	print_error(char *str);
+void	free_data(t_data *data);
 
 #endif
