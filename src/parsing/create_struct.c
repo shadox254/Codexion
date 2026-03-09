@@ -6,13 +6,11 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:02:57 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/09 11:20:54 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/09 11:36:35 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/codexion.h"
-
-void test(t_coder *coder, unsigned int count);
 
 static void	create_coders(t_data *data);
 
@@ -38,16 +36,11 @@ static void	create_coders(t_data *data)
 	}
 	while (count < data->rules.number_of_coders)
 	{
-		test(&data->coders[count], count);
+		data->coders[count].id = count + 1;
+		data->coders[count].nbr_of_compilations = 0;
+		data->coders[count].finished = 0;
+		data->coders[count].left_dongle = NULL;
+		data->coders[count].right_dongle = NULL;
 		count++;
 	}
-}
-
-void test(t_coder *coder, unsigned int count)
-{
-	coder->id = count + 1;
-	coder->nbr_of_compilations = 0;
-	coder->finished = 0;
-	coder->left_dongle = NULL;
-	coder->right_dongle = NULL;
 }
