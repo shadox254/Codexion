@@ -6,24 +6,27 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:02:57 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/09 12:29:55 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/09 16:01:30 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/codexion.h"
 
-static void	create_coders(t_data *data);
+static int	create_coders(t_data *data);
 
 int create_data(t_data *data, char **av)
 {
 	if (args_verif(av) == 0)
 		return (0);
 	fill_rules(&data->rules, av);
-	create_coders(data);
-	return (1);
+	if ((strcmp(data->rules.scheduler, "fifo") == 0 || (strcmp(data->rules.scheduler, "FIFO") == 0)))
+		data->is_fifo = 1;
+	else
+		data->is_fifo = 0;
+	return (create_coders(data));
 }
 
-static void	create_coders(t_data *data)
+static int	create_coders(t_data *data)
 {
 	unsigned int count;
 
@@ -32,7 +35,7 @@ static void	create_coders(t_data *data)
 	if (!data->coders)
 	{
 		print_error(MALLOC_ERROR);
-		return;
+		return (0);
 	}
 	while (count < data->rules.number_of_coders)
 	{
@@ -44,4 +47,5 @@ static void	create_coders(t_data *data)
 		data->coders[count].right_dongle = NULL;
 		count++;
 	}
+	return (1);
 }

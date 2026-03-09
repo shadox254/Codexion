@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.c                                         :+:      :+:    :+:   */
+/*   fifo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/06 11:16:28 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/09 14:58:54 by rruiz            ###   ########.fr       */
+/*   Created: 2026/03/09 16:07:27 by rruiz             #+#    #+#             */
+/*   Updated: 2026/03/09 16:10:12 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/codexion.h"
 
-void	codexion(char **av)
+void	fifo(t_coder *coder)
 {
-	t_data	data;
-
-	if (create_data(&data, av) == 0)
-		return;
-	init_mutex(&data);
-	print_data(data);
-	free_data(&data);
+	
 }

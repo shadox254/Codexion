@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.c                                         :+:      :+:    :+:   */
+/*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/06 11:16:28 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/09 14:58:54 by rruiz            ###   ########.fr       */
+/*   Created: 2026/03/09 15:21:49 by rruiz             #+#    #+#             */
+/*   Updated: 2026/03/09 16:07:36 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/codexion.h"
 
-void	codexion(char **av)
+void	init_thread(t_data *data)
 {
-	t_data	data;
+	unsigned int	count;
+	
+	count = 0;
+	while (count)
+	{
+		pthread_create(&data->coders[count].id, NULL, coder_start, NULL);
+		count++;
+	}
+}
 
-	if (create_data(&data, av) == 0)
+static void	coder_start(void *arg)
+{
+	t_coder	*coder;
+
+	coder = (t_coder *)arg;
+	if (coder->data->is_fifo == 1)
+		fifo(coder);
+	else
 		return;
-	init_mutex(&data);
-	print_data(data);
-	free_data(&data);
 }

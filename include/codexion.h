@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:21 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/09 12:31:13 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/09 16:12:07 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_coder
 	int			finished;
 	t_dongle	*left_dongle;
 	t_dongle	*right_dongle;
+	pthread_t	thread_id;
 }	t_coder;
 
 typedef struct s_dongle
@@ -76,6 +77,8 @@ typedef struct s_data
 	t_coder			*coders;
 	t_dongle		*dongles;
 	pthread_mutex_t	print_lock;
+	int				dead;
+	int				is_fifo;
 }	t_data;
 
 /* SRC/CODEXION */
@@ -95,9 +98,15 @@ void	print_data(t_data data);
 void	print_rules(t_rules rules);
 void	print_coders(t_data data);
 
-
 /* SRC/UTILS/ERROR */
 void	print_error(char *str);
 void	free_data(t_data *data);
+
+/* SRC/MUTEX */
+void	init_mutex(t_data *data);
+
+/* SRC/FIFO */
+void	fifo(t_coder *coder);
+
 
 #endif

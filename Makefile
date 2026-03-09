@@ -6,7 +6,7 @@
 #    By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/06 11:16:38 by rruiz             #+#    #+#              #
-#    Updated: 2026/03/09 10:09:40 by rruiz            ###   ########.fr        #
+#    Updated: 2026/03/09 16:11:10 by rruiz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,10 @@ SRC		=	codexion.c \
 			parsing/rules_management.c \
 			parsing/create_struct.c \
 			utils/debug.c \
-			utils/error.c
+			utils/error.c \
+			mutex.c \
+			thread.c \
+			fifo.c
 
 SRCS	=	$(MAIN) $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

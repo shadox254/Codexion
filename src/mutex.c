@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.c                                         :+:      :+:    :+:   */
+/*   mutex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/06 11:16:28 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/09 14:58:54 by rruiz            ###   ########.fr       */
+/*   Created: 2026/03/09 14:54:33 by rruiz             #+#    #+#             */
+/*   Updated: 2026/03/09 15:17:55 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/codexion.h"
 
-void	codexion(char **av)
-{
-	t_data	data;
+static void	init_dongles(t_data *data);
 
-	if (create_data(&data, av) == 0)
-		return;
-	init_mutex(&data);
-	print_data(data);
-	free_data(&data);
+void init_mutex(t_data *data)
+{
+	pthread_mutex_init(&data->print_lock, NULL);
+	init_dongles(data);
+}
+
+static void	init_dongles(t_data *data)
+{
+	unsigned int	count;
+
+	count = 0;
+	data->dongles = malloc(sizeof(t_dongle) * data->rules.number_of_coders);
+	while (count < data->rules.number_of_coders)
+	{
+		pthread_mutex_init(&data->dongles[count].lock, NULL);
+		count++;
+	}
 }
