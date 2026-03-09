@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:02:57 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/09 16:01:30 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/09 17:30:08 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static int	create_coders(t_data *data)
 		data->coders[count].id = count + 1;
 		data->coders[count].nbr_of_compilations = 0;
 		data->coders[count].finished = 0;
-		data->coders[count].left_dongle = NULL;
-		data->coders[count].right_dongle = NULL;
+		data->coders[count].left_dongle = &data->dongles[count];
+		data->coders[count].right_dongle = &data->dongles[((count + 1) % data->rules.number_of_coders)];
 		count++;
 	}
 	return (1);

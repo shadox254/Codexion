@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 14:54:33 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/09 15:17:55 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/09 16:44:17 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static void	init_dongles(t_data *data)
 	data->dongles = malloc(sizeof(t_dongle) * data->rules.number_of_coders);
 	while (count < data->rules.number_of_coders)
 	{
+		data->dongles[count].data = data;
+		data->dongles[count].cooldown = 0;
 		pthread_mutex_init(&data->dongles[count].lock, NULL);
 		count++;
 	}

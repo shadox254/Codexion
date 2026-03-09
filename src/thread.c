@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 15:21:49 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/09 16:07:36 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/09 16:42:00 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	init_thread(t_data *data)
 	unsigned int	count;
 	
 	count = 0;
-	while (count)
+	while (count < data->rules.number_of_coders)
 	{
-		pthread_create(&data->coders[count].id, NULL, coder_start, NULL);
+		pthread_create(&data->coders[count].thread_id, NULL, coder_start, &data->coders[count]);
 		count++;
 	}
 }
