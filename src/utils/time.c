@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/09 09:17:26 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/12 09:31:48 by rruiz            ###   ########.fr       */
+/*   Created: 2026/03/10 09:15:00 by rruiz             #+#    #+#             */
+/*   Updated: 2026/03/10 09:19:43 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/codexion.h"
 
-void	print_error(char *str)
+int	get_time()
 {
-	fprintf(stderr, "%s\n", str);
-}
+	struct timeval tv;
 
-void	free_data(t_data *data)
-{
-	unsigned int	count;
-
-	count = 0;
-	if (data->dongles)
-		free(data->dongles);
-	if (data->coders)
-		free(data->coders);
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000000)+ tv.tv_usec);
 }

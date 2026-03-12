@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:31 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/09 11:20:30 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/11 16:46:26 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ int	args_verif(char **av)
 	while (i < 8)
 	{
 		if (is_int(av[i]) == 0)
+		{
+			print_error(ARGS_ERROR);
+			return (0);
+		}
+		if (atoi(av[i]) < 0)
 		{
 			print_error(ARGS_ERROR);
 			return (0);

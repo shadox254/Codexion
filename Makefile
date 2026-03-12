@@ -6,7 +6,7 @@
 #    By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/06 11:16:38 by rruiz             #+#    #+#              #
-#    Updated: 2026/03/09 16:11:10 by rruiz            ###   ########.fr        #
+#    Updated: 2026/03/12 09:52:47 by rruiz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,21 +15,24 @@ CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror -pthread
 RM		=	rm -rf
 
-INC_DIR	=	includde
+INC_DIR	=	include
 SRC_DIR	=	src
 OBJ_DIR	=	obj
 
 MAIN	=	main.c
 
 SRC		=	codexion.c \
+			engine/action.c \
+			engine/monitoring.c \
+			engine/thread.c \
+			init/data.c \
+			init/init_coders_dongles.c \
 			parsing/args_verification.c \
 			parsing/rules_management.c \
-			parsing/create_struct.c \
+			schedulers/fifo.c \
 			utils/debug.c \
 			utils/error.c \
-			mutex.c \
-			thread.c \
-			fifo.c
+			utils/time.c
 
 SRCS	=	$(MAIN) $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

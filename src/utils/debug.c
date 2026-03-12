@@ -6,18 +6,27 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 09:17:40 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/09 16:01:53 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/10 09:22:30 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/codexion.h"
 
-void	print_data(t_data data)
+void	print_all(t_data data)
 {
+	printf("=============== DATA ===============\n");
+	print_data(data);
 	printf("=============== RULES ===============\n");
 	print_rules(data.rules);
 	printf("\n=============== CODERS ===============\n");
 	print_coders(data);
+}
+
+void	print_data(t_data data)
+{
+	printf("is fifo: %i\n", data.is_fifo);
+	printf("dead: %i\n", data.dead);
+	printf("start time: %i\n", data.start_time);
 }
 
 void	print_rules(t_rules rules)
