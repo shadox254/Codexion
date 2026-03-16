@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:04:37 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 11:53:48 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 16:37:32 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,17 @@ int	is_simu(t_data *data)
 
 static void	end_all(t_data *data)
 {
+	unsigned int	count;
+
+	count = 0;
 	pthread_mutex_lock(&data->lock);
 	data->is_simu = 0;
 	pthread_mutex_unlock(&data->lock);
+	while (count < data->rules.number_of_coders)
+	{
+		pthread_mutex_lock(&data->dongles[count].lock);
+		pthread_cond_broadcast(&data->dongles[count].cond);
+		pthread_mutex_unlock(&data->dongles[count].lock);
+		count++;
+	}
 }

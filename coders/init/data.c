@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:44:24 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/13 14:07:25 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 16:13:26 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	init_data(t_data *data, char **av)
 		data->is_fifo = 1;
 	else
 		data->is_fifo = 0;
-	data->dead = 0;
 	data->start_time = get_time();
 	data->is_simu = 1;
 	data->dongles = malloc(sizeof(t_dongle) * data->rules.number_of_coders);

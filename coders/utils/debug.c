@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 09:17:40 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 12:03:31 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 14:52:40 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	print_all(t_data data)
 void	print_data(t_data data)
 {
 	printf("is fifo: %i\n", data.is_fifo);
-	printf("dead: %i\n", data.dead);
 	printf("start time: %lli\n", data.start_time);
 	printf("is simulation: %i\n", data.is_simu);
 }

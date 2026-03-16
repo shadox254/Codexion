@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:21 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 11:59:25 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 16:36:28 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ typedef struct s_data
 	t_coder			*coders;
 	t_dongle		*dongles;
 	pthread_mutex_t	print_lock;
-	int				dead;
 	int				is_fifo;
 	long long		start_time;
 	pthread_t		monitor;
@@ -117,5 +116,7 @@ void		*monitoring(void *arg);
 int			is_simu(t_data *data);
 int			have_finish(t_coder *coder);
 void	print_dongles(t_data data);
+void	destroy_mutex(t_data *data);
+void	custom_sleep(long long time_in_ms, t_data *data);
 
 #endif

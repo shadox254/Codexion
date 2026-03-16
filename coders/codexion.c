@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:28 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 12:05:44 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 16:40:37 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ void	codexion(char **av)
 	init_mutex(&data);
 	init_thread(&data);
 	// print_all(data);
+	// destroy_mutex(&data);
 	free_data(&data);
 }

@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 09:34:05 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 10:14:55 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 16:12:53 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,19 @@ void	init_mutex(t_data *data)
 		pthread_cond_init(&data->dongles[count].cond, NULL);
 		count++;
 	}
+}
+
+void	destroy_mutex(t_data *data)
+{
+	unsigned int	count;
+
+	count = 0;
+	while (count < data->rules.number_of_coders)
+	{
+		pthread_mutex_destroy(&data->coders[count].data_lock);
+		pthread_mutex_destroy(&data->dongles[count].lock);
+		pthread_cond_destroy(&data->dongles[count].cond);
+	}
+	pthread_mutex_destroy(&data->print_lock);
+	pthread_mutex_destroy(&data->lock);
 }

@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 16:07:27 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 11:51:56 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 16:40:18 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	do_compile(t_coder *coder, t_dongle *first, t_dongle *second)
 	wait_for_dongle(coder, first, first_ticket);
 	wait_for_dongle(coder, second, second_ticket);
 	print_action(coder, COMPILING);
-	usleep(coder->data->rules.time_to_compile * 1000);
+	custom_sleep(coder->data->rules.time_to_compile, coder->data);
 	coder->nbr_of_compilations++;
 }
 
@@ -94,19 +94,19 @@ static void	wait_for_dongle(t_coder *coder, t_dongle *dongle, unsigned int ticke
 	long long	wait_time;
 
 	pthread_mutex_lock(&dongle->lock);
-	while (ticket != dongle->serving_ticket)
+	while (ticket != dongle->serving_ticket && is_simu(coder->data) == 1)
 		pthread_cond_wait(&dongle->cond, &dongle->lock);
 	wait_time = (dongle->last_release + coder->data->rules.dongle_cooldown) - get_time();
 	pthread_mutex_unlock(&dongle->lock);
 	if (wait_time > 0)
-		usleep(wait_time * 1000);
+		custom_sleep(wait_time, coder->data);
 	print_action(coder, TAKE_DONGLE);
 }
 
 void	debugging_and_refactoring(t_coder *coder)
 {
 	print_action(coder, DEBUGGING);
-	usleep(coder->data->rules.time_to_debug * 1000);
+	custom_sleep(coder->data->rules.time_to_debug, coder->data);
 	print_action(coder, REFACTORING);
-	usleep(coder->data->rules.time_to_refactor * 1000);
+	custom_sleep(coder->data->rules.time_to_refactor, coder->data);
 }
