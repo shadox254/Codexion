@@ -6,11 +6,11 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 09:17:40 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/10 09:22:30 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/13 14:08:39 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/codexion.h"
+#include "codexion.h"
 
 void	print_all(t_data data)
 {
@@ -26,7 +26,8 @@ void	print_data(t_data data)
 {
 	printf("is fifo: %i\n", data.is_fifo);
 	printf("dead: %i\n", data.dead);
-	printf("start time: %i\n", data.start_time);
+	printf("start time: %lli\n", data.start_time);
+	printf("is simulation: %i\n", data.is_simu);
 }
 
 void	print_rules(t_rules rules)
@@ -52,8 +53,8 @@ void	print_coders(t_data data)
 		printf("id: %i\n", data.coders[count].id);
 		printf("nbr_of_compilations: %i\n", data.coders[count].nbr_of_compilations);
 		printf("finished: %i\n", data.coders[count].finished);
-		printf("left_dongle: %p\n", data.coders[count].left_dongle);
-		printf("right_dongle: %p\n", data.coders[count].right_dongle);
+		// printf("left_dongle: %p\n", data.coders[count].left_dongle);
+		// printf("right_dongle: %p\n", data.coders[count].right_dongle);
 		count++;
 	}
 }

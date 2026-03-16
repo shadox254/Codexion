@@ -6,28 +6,30 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 15:21:49 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/12 10:37:24 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/13 13:54:20 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/codexion.h"
+#include "codexion.h"
 
-static void	coder_start(void *arg);
+static void	*coder_start(void *arg);
+static void	join_thread(t_data *data);
 
 void	init_thread(t_data *data)
 {
 	unsigned int	count;
 	
 	count = 0;
-	// pthread_create(&data->monitor, NULL, monitoring, &data->coders[count]);
+	pthread_create(&data->monitor, NULL, monitoring, &data);
 	while (count < data->rules.number_of_coders)
 	{
-		pthread_create(&data->coders[count].thread_id, NULL, coder_start, &data->coders[count]);
+		pthread_create(&data->coders[count].thread_id, NULL, coder_start, data->coders);
 		count++;
 	}
+	join_thread(data);
 }
 
-static void	coder_start(void *arg)
+static void	*coder_start(void *arg)
 {
 	t_coder	*coder;
 
@@ -35,5 +37,19 @@ static void	coder_start(void *arg)
 	if (coder->data->is_fifo == 1)
 		fifo(coder);
 	else
-		return;
+		return (NULL);
+	return (NULL);
+}
+
+static void	join_thread(t_data *data)
+{
+	unsigned int	count;
+	
+	count = 0;
+	// pthread_create(&data->monitor, NULL, monitoring, &data->coders[count]);
+	while (count < data->rules.number_of_coders)
+	{
+		pthread_join(data->coders[count].thread_id, NULL);
+		count++;
+	}
 }

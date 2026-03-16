@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   codexion.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/06 11:16:33 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/09 11:37:43 by rruiz            ###   ########.fr       */
+/*   Created: 2026/03/06 11:16:28 by rruiz             #+#    #+#             */
+/*   Updated: 2026/03/16 09:06:34 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/codexion.h"
+#include "codexion.h"
 
-int main(int ac, char **av)
+void	codexion(char **av)
 {
-	(void) av;
-	if (ac == 9)
-		codexion(av);
-	else
-	{
-		print_error(USAGE_ERROR);
-		return(1);
-	}
+	t_data	data;
+
+	if (init_data(&data, av) == 0)
+		return;
+	init_mutex(&data);
+	init_thread(&data);
+	// print_all(data);
+	free_data(&data);
 }

@@ -6,11 +6,11 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:31 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/11 16:46:26 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/13 14:08:11 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/codexion.h"
+#include "codexion.h"
 
 static int	is_digit(int c);
 static int	is_int(char *n);

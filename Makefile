@@ -6,7 +6,7 @@
 #    By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/06 11:16:38 by rruiz             #+#    #+#              #
-#    Updated: 2026/03/12 09:52:47 by rruiz            ###   ########.fr        #
+#    Updated: 2026/03/16 09:37:16 by rruiz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,15 +15,15 @@ CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror -pthread
 RM		=	rm -rf
 
-INC_DIR	=	include
-SRC_DIR	=	src
+INC_DIR	=	-I coders/include
+SRC_DIR	=	coders
 OBJ_DIR	=	obj
 
-MAIN	=	main.c
-
-SRC		=	codexion.c \
+SRC		=	main.c \
+			codexion.c \
 			engine/action.c \
 			engine/monitoring.c \
+			engine/mutex.c \
 			engine/thread.c \
 			init/data.c \
 			init/init_coders_dongles.c \
@@ -32,7 +32,8 @@ SRC		=	codexion.c \
 			schedulers/fifo.c \
 			utils/debug.c \
 			utils/error.c \
-			utils/time.c
+			utils/time.c \
+			utils/utils.c
 
 SRCS	=	$(MAIN) $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
@@ -40,11 +41,11 @@ OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INC_DIR) -c $< -o $@
 
 clean:
 	$(RM) $(OBJ_DIR)

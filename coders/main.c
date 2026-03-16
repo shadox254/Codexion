@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   action.c                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 10:37:15 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/12 16:15:23 by rruiz            ###   ########.fr       */
+/*   Created: 2026/03/06 11:16:33 by rruiz             #+#    #+#             */
+/*   Updated: 2026/03/13 14:08:51 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/codexion.h"
+#include "codexion.h"
 
-void	print_action(t_coder *coder, char *action)
+int main(int ac, char **av)
 {
-	pthread_mutex_lock(&coder->data->print_lock);
-	if (coder->data->dead == 0)
-		printf(action, (get_time() - coder->data->start_time) / 1000, coder->id);
-	pthread_mutex_unlock(&coder->data->print_lock);
+	(void) av;
+	if (ac == 9)
+		codexion(av);
+	else
+	{
+		print_error(USAGE_ERROR);
+		return(1);
+	}
 }

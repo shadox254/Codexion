@@ -6,11 +6,11 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:47:15 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/12 16:12:35 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/13 14:07:20 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/codexion.h"
+#include "codexion.h"
 
 static void	assign_dongles(t_data *data, unsigned int i);
 
@@ -33,7 +33,7 @@ int	init_coders_dongles(t_data *data)
 		data->coders[i].finished = 0;
 		data->coders[i].last_compile = get_time();
 		pthread_mutex_init(&data->coders[i].data_lock, NULL);
-		pthread_mutex_init(&data->dongles[i].lock, NULL);
+		// pthread_mutex_init(&data->dongles[i].lock, NULL);
 		data->dongles[i].serving_ticket = 0;
 		data->dongles[i].ticket_counter = 0;
 		assign_dongles(data, i);

@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/06 11:16:28 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/11 15:11:54 by rruiz            ###   ########.fr       */
+/*   Created: 2026/03/13 13:53:03 by rruiz             #+#    #+#             */
+/*   Updated: 2026/03/16 09:46:27 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/codexion.h"
+#include "codexion.h"
 
-void	codexion(char **av)
+int	have_finish(t_coder *coder)
 {
-	t_data	data;
+	unsigned int	nbr_of_comp;
 
-	if (create_data(&data, av) == 0)
-		return;
-	init_mutex(&data);
-	print_all(data);
-	free_data(&data);
+	pthread_mutex_lock(&coder->data_lock);
+	nbr_of_comp = coder->nbr_of_compilations;
+	if (nbr_of_comp == coder->data->rules.number_of_compiles_required)
+	{
+		coder->finished = 1;
+		pthread_mutex_unlock(&coder->data_lock);
+		return (1);
+	}
+	pthread_mutex_unlock(&coder->data_lock);
+	return (0);
 }
