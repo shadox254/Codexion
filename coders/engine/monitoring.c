@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:04:37 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 10:02:29 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 11:53:48 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	*monitoring(void *arg)
 	while (is_simu(data) == 1)
 	{
 		if (burnout_arrived(data) == 1)
+		{
+			end_all(data);
 			return (NULL);
+		}
 		if (is_finished(data) == data->rules.number_of_coders)
 		{
 			end_all(data);
@@ -47,6 +50,7 @@ static int	burnout_arrived(t_data *data)
 		if (get_time() - last_comp > data->rules.time_to_burnout)
 		{
 			print_action(&data->coders[count], BURNOUT);
+			pthread_mutex_unlock(&data->coders[count].data_lock);
 			return (1);
 		}
 		pthread_mutex_unlock(&data->coders[count].data_lock);

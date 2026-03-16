@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:21 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 10:02:41 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 11:59:25 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ void		init_mutex(t_data *data);
 void		*monitoring(void *arg);
 int			is_simu(t_data *data);
 int			have_finish(t_coder *coder);
+void	print_dongles(t_data data);
 
 #endif

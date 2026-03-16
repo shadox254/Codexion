@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 09:34:05 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 08:58:06 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 10:14:55 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_mutex(t_data *data)
 	while (count < data->rules.number_of_coders)
 	{
 		pthread_mutex_init(&data->dongles[count].lock, NULL);
+		pthread_cond_init(&data->dongles[count].cond, NULL);
 		count++;
 	}
 }

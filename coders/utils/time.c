@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 09:15:00 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/13 14:08:15 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 10:59:01 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@ long long	get_time()
 	struct timeval tv;
 
 	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000000)+ tv.tv_usec);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
