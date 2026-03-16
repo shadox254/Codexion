@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 15:21:49 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 13:35:09 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 16:53:29 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ static void	join_thread(t_data *data);
 void	init_thread(t_data *data)
 {
 	unsigned int	count;
-	
+
 	count = 0;
 	while (count < data->rules.number_of_coders)
 	{
-		pthread_create(&data->coders[count].thread_id, NULL, coder_start, &data->coders[count]);
+		pthread_create(&data->coders[count].thread_id, NULL, coder_start,
+			&data->coders[count]);
 		count++;
 	}
 	pthread_create(&data->monitor, NULL, monitoring, data);
@@ -44,9 +45,8 @@ static void	*coder_start(void *arg)
 static void	join_thread(t_data *data)
 {
 	unsigned int	count;
-	
+
 	count = 0;
-	// pthread_create(&data->monitor, NULL, monitoring, &data->coders[count]);
 	while (count < data->rules.number_of_coders)
 	{
 		pthread_join(data->coders[count].thread_id, NULL);

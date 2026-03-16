@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:47:15 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 10:59:30 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 16:56:34 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	assign_dongles(t_data *data, unsigned int i);
 
 int	init_coders_dongles(t_data *data)
-{	
+{
 	unsigned int	i;
 
 	i = 0;
@@ -45,5 +45,6 @@ int	init_coders_dongles(t_data *data)
 static void	assign_dongles(t_data *data, unsigned int i)
 {
 	data->coders[i].left_dongle = &data->dongles[i];
-	data->coders[i].right_dongle = &data->dongles[(i + 1) % data->rules.number_of_coders];
+	data->coders[i].right_dongle = &data->dongles[(i + 1)
+		% data->rules.number_of_coders];
 }

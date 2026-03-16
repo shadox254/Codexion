@@ -6,7 +6,7 @@
 #    By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/06 11:16:38 by rruiz             #+#    #+#              #
-#    Updated: 2026/03/16 09:37:16 by rruiz            ###   ########.fr        #
+#    Updated: 2026/03/16 17:04:20 by rruiz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC		=	main.c \
 			parsing/args_verification.c \
 			parsing/rules_management.c \
 			schedulers/fifo.c \
+			schedulers/fifo_utils.c \
 			utils/debug.c \
 			utils/error.c \
 			utils/time.c \

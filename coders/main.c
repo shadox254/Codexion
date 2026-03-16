@@ -6,13 +6,13 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:33 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/13 14:08:51 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 16:48:02 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	(void) av;
 	if (ac == 9)
@@ -20,6 +20,6 @@ int main(int ac, char **av)
 	else
 	{
 		print_error(USAGE_ERROR);
-		return(1);
+		return (1);
 	}
 }

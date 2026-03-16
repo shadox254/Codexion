@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:31 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/13 14:08:11 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 16:57:44 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	is_digit(int c);
 static int	is_int(char *n);
-
 
 int	args_verif(char **av)
 {
@@ -36,7 +35,7 @@ int	args_verif(char **av)
 		i++;
 	}
 	if ((strcmp(av[8], "fifo") && strcmp(av[8], "edf"))
-	&& (strcmp(av[8], "FIFO") && strcmp(av[8], "EDF")))
+		&& (strcmp(av[8], "FIFO") && strcmp(av[8], "EDF")))
 	{
 		print_error(LAST_ARGS_ERROR);
 		return (0);
@@ -64,11 +63,10 @@ static int	is_int(char *n)
 	{
 		if (is_digit(n[i]) == 0)
 			return (0);
-		nb = (nb *10) + n[i] - '0';
+		nb = (nb * 10) + n[i] - '0';
 		i++;
 	}
 	if (nb > INT_MAX)
 		return (0);
 	return (1);
 }
-

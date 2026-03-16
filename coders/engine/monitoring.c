@@ -6,15 +6,15 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:04:37 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 16:37:32 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 16:52:46 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-static int	burnout_arrived(t_data *data);
+static int			burnout_arrived(t_data *data);
 static unsigned int	is_finished(t_data *data);
-static void	end_all(t_data *data);
+static void			end_all(t_data *data);
 
 void	*monitoring(void *arg)
 {

@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:21 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 16:36:28 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 16:54:17 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ typedef struct s_dongle
 {
 	t_data			*data;
 	pthread_mutex_t	lock;
-    pthread_cond_t  cond;
-    long long       last_release;
-    unsigned int    ticket_counter;
-    unsigned int    serving_ticket;
+	pthread_cond_t	cond;
+	long long		last_release;
+	unsigned int	ticket_counter;
+	unsigned int	serving_ticket;
 }	t_dongle;
 
 typedef struct s_data
@@ -110,13 +110,13 @@ void		print_rules(t_rules rules);
 void		print_coders(t_data data);
 void		print_error(char *str);
 void		free_data(t_data *data);
-long long	get_time();
+long long	get_time(void);
 void		init_mutex(t_data *data);
 void		*monitoring(void *arg);
 int			is_simu(t_data *data);
 int			have_finish(t_coder *coder);
-void	print_dongles(t_data data);
-void	destroy_mutex(t_data *data);
-void	custom_sleep(long long time_in_ms, t_data *data);
+void		print_dongles(t_data data);
+void		destroy_mutex(t_data *data);
+void		custom_sleep(long long time_in_ms, t_data *data);
 
 #endif

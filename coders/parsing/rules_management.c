@@ -6,11 +6,12 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:26 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/13 14:08:22 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 16:57:06 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+
 void	fill_rules(t_rules *rules, char **av)
 {
 	rules->number_of_coders = atoi(av[1]);

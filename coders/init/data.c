@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:44:24 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 16:13:26 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 16:54:55 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	init_data(t_data *data, char **av)
 	if (args_verif(av) == 0)
 		return (0);
 	fill_rules(&data->rules, av);
-	if ((strcmp(data->rules.scheduler, "fifo") == 0 
-		|| (strcmp(data->rules.scheduler, "FIFO") == 0)))
+	if ((strcmp(data->rules.scheduler, "fifo") == 0
+			|| (strcmp(data->rules.scheduler, "FIFO") == 0)))
 		data->is_fifo = 1;
 	else
 		data->is_fifo = 0;
