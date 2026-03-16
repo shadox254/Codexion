@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:04:37 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 16:52:46 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/16 17:55:54 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	*monitoring(void *arg)
 			end_all(data);
 			return (NULL);
 		}
+		custom_sleep(1000, data);
 	}
 	return (NULL);
 }
@@ -41,19 +42,20 @@ static int	burnout_arrived(t_data *data)
 {
 	unsigned int	count;
 	long long		last_comp;
+	int				finish;
 
 	count = 0;
 	while (count < data->rules.number_of_coders)
 	{
 		pthread_mutex_lock(&data->coders[count].data_lock);
 		last_comp = data->coders[count].last_compile;
-		if (get_time() - last_comp > data->rules.time_to_burnout)
+		finish = data->coders[count].finished;
+		pthread_mutex_unlock(&data->coders[count].data_lock);
+		if (get_time() - last_comp > data->rules.time_to_burnout )
 		{
 			print_action(&data->coders[count], BURNOUT);
-			pthread_mutex_unlock(&data->coders[count].data_lock);
 			return (1);
 		}
-		pthread_mutex_unlock(&data->coders[count].data_lock);
 		count++;
 	}
 	return (0);
