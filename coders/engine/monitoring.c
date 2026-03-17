@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:04:37 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 17:55:54 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/17 08:53:51 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	burnout_arrived(t_data *data)
 		last_comp = data->coders[count].last_compile;
 		finish = data->coders[count].finished;
 		pthread_mutex_unlock(&data->coders[count].data_lock);
-		if (get_time() - last_comp > data->rules.time_to_burnout )
+		if (finish == 0 && get_time() - last_comp > data->rules.time_to_burnout)
 		{
 			print_action(&data->coders[count], BURNOUT);
 			return (1);

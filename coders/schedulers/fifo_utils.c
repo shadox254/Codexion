@@ -6,18 +6,18 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 16:07:27 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 17:33:33 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/17 09:19:56 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
 static void	set_order(t_coder *coder, t_dongle **first, t_dongle **second);
-static void	get_tickets(t_coder *coder, t_dongle *first, t_dongle *second,
+static void	get_tickets(t_dongle *first, t_dongle *second,
 				unsigned int *tickets);
 static void	do_compile(t_coder *coder, t_dongle *first, t_dongle *second);
-static void	wait_for_dongle(t_coder *coder, t_dongle *dongle,
-				unsigned int ticket);
+static void	wait_for_dongle(t_coder *coder, t_dongle *dongle1, t_dongle *dongle2,
+				unsigned int *tickets);
 
 void	compiling(t_coder *coder)
 {
@@ -52,10 +52,8 @@ static void	set_order(t_coder *coder, t_dongle **first, t_dongle **second)
 	}
 }
 
-static void	get_tickets(t_coder *coder, t_dongle *first, t_dongle *second,
-	unsigned int *tickets)
+static void	get_tickets(t_dongle *first, t_dongle *second, unsigned int *tickets)
 {
-	pthread_mutex_lock(&coder->data->lock);
 	pthread_mutex_lock(&first->lock);
 	tickets[0] = first->ticket_counter;
 	first->ticket_counter += 1;
@@ -64,33 +62,42 @@ static void	get_tickets(t_coder *coder, t_dongle *first, t_dongle *second,
 	tickets[1] = second->ticket_counter;
 	second->ticket_counter += 1;
 	pthread_mutex_unlock(&second->lock);
-	pthread_mutex_unlock(&coder->data->lock);
 }
 
 static void	do_compile(t_coder *coder, t_dongle *first, t_dongle *second)
 {
 	unsigned int	tickets[2];
 
-	get_tickets(coder, first, second, tickets);
-	wait_for_dongle(coder, first, tickets[0]);
-	wait_for_dongle(coder, second, tickets[1]);
+	get_tickets(first, second, tickets);
+	wait_for_dongle(coder, first, second, tickets);
 	print_action(coder, COMPILING);
 	custom_sleep(coder->data->rules.time_to_compile, coder->data);
 	coder->nbr_of_compilations++;
 }
 
-static void	wait_for_dongle(t_coder *coder, t_dongle *dongle,
-		unsigned int ticket)
+static void	wait_for_dongle(t_coder *coder, t_dongle *dongle1,
+		t_dongle *dongle2, unsigned int *tickets)
 {
 	long long	wait_time;
+	long long	d1_cooldown;
+	long long	d2_cooldown;
 
-	pthread_mutex_lock(&dongle->lock);
-	while (ticket != dongle->serving_ticket && is_simu(coder->data) == 1)
-		pthread_cond_wait(&dongle->cond, &dongle->lock);
-	wait_time = (dongle->last_release + coder->data->rules.dongle_cooldown)
-		- get_time();
-	pthread_mutex_unlock(&dongle->lock);
+	pthread_mutex_lock(&dongle1->lock);
+	while (tickets[0] != dongle1->serving_ticket && is_simu(coder->data) == 1)
+		pthread_cond_wait(&dongle1->cond, &dongle1->lock);
+	d1_cooldown = (dongle1->last_release);
+	pthread_mutex_unlock(&dongle1->lock);
+	pthread_mutex_lock(&dongle2->lock);
+	while (tickets[1] != dongle2->serving_ticket && is_simu(coder->data) == 1)
+		pthread_cond_wait(&dongle2->cond, &dongle2->lock);
+	d2_cooldown = (dongle2->last_release);
+	pthread_mutex_unlock(&dongle2->lock);
+	if (d1_cooldown > d2_cooldown)
+		wait_time = d1_cooldown + coder->data->rules.dongle_cooldown - get_time();
+	else
+		wait_time = d2_cooldown + coder->data->rules.dongle_cooldown - get_time();
 	if (wait_time > 0)
 		custom_sleep(wait_time, coder->data);
+	print_action(coder, TAKE_DONGLE);
 	print_action(coder, TAKE_DONGLE);
 }
