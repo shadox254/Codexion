@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:21 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 16:54:17 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/17 17:45:00 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,27 @@ must be either “fifo/FIFO” or “edf/EDF\"."
 
 # define D_MALLOC_ERROR		"Error, Malloc failed for dongles."
 
+# define N_MALLOC_ERROR		"Error, Malloc failed for nodes."
+
 typedef struct s_data	t_data;
 typedef struct s_dongle	t_dongle;
 typedef struct s_coder	t_coder;
 typedef struct s_rules	t_rules;
 typedef struct s_timer	t_timer;
+typedef struct s_node	t_node;
+typedef struct s_heap	t_heap;
+
+typedef struct s_node
+{
+	int				coder_id;
+	long long		deadline;
+}	t_node;
+
+typedef struct s_heap
+{
+	t_node			*nodes;
+	unsigned int	size;
+}	t_heap;
 
 typedef struct s_rules
 {
@@ -68,6 +84,7 @@ typedef struct s_coder
 	t_dongle		*right_dongle;
 	pthread_t		thread_id;
 	long long		last_compile;
+	long long		last_compile_start;
 	pthread_mutex_t	data_lock;
 }	t_coder;
 
@@ -79,6 +96,7 @@ typedef struct s_dongle
 	long long		last_release;
 	unsigned int	ticket_counter;
 	unsigned int	serving_ticket;
+	t_heap			heap;
 }	t_dongle;
 
 typedef struct s_data
@@ -98,7 +116,7 @@ void		codexion(char **av);
 void		print_action(t_coder *coder, char *action);
 void		init_thread(t_data *data);
 int			init_data(t_data *data, char **av);
-int			init_coders_dongles(t_data *data);
+int			init_all(t_data *data);
 int			args_verif(char **av);
 void		fill_rules(t_rules *rules, char **av);
 void		fifo(t_coder *coder);

@@ -6,13 +6,13 @@
 #    By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/06 11:16:38 by rruiz             #+#    #+#              #
-#    Updated: 2026/03/16 17:04:20 by rruiz            ###   ########.fr        #
+#    Updated: 2026/03/17 17:44:35 by rruiz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	codexion
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -pthread
+CFLAGS	=	-Wall -Wextra -Werror -pthread -g
 RM		=	rm -rf
 
 INC_DIR	=	-I coders/include
@@ -26,7 +26,7 @@ SRC		=	main.c \
 			engine/mutex.c \
 			engine/thread.c \
 			init/data.c \
-			init/init_coders_dongles.c \
+			init/initialization.c \
 			parsing/args_verification.c \
 			parsing/rules_management.c \
 			schedulers/fifo.c \

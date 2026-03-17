@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 09:34:05 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/17 10:20:54 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/17 17:34:11 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	destroy_mutex(t_data *data)
 		pthread_mutex_destroy(&data->coders[count].data_lock);
 		pthread_mutex_destroy(&data->dongles[count].lock);
 		pthread_cond_destroy(&data->dongles[count].cond);
+		if (data->dongles[count].heap.nodes)
+			free(data->dongles[count].heap.nodes);
 		count++;
 	}
 	pthread_mutex_destroy(&data->print_lock);

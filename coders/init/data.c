@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:44:24 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 16:54:55 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/17 17:47:07 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ int	init_data(t_data *data, char **av)
 		print_error(D_MALLOC_ERROR);
 		return (0);
 	}
-	if (init_coders_dongles(data) == 0)
-	{
-		print_error(C_MALLOC_ERROR);
+	if (init_all(data) == 0)
 		return (0);
-	}
 	return (1);
 }
