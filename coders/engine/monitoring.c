@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:04:37 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/17 08:53:51 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/17 09:27:49 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*monitoring(void *arg)
 			end_all(data);
 			return (NULL);
 		}
-		custom_sleep(1000, data);
+		custom_sleep(1, data);
 	}
 	return (NULL);
 }

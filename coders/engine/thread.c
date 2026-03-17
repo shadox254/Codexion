@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 15:21:49 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 16:53:29 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/17 09:26:39 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ static void	join_thread(t_data *data)
 		pthread_join(data->coders[count].thread_id, NULL);
 		count++;
 	}
+	pthread_join(data->monitor, NULL);
 }

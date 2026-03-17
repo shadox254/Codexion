@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 16:07:27 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/17 09:19:56 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/17 11:55:35 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	compiling(t_coder *coder)
 
 	set_order(coder, &first, &second);
 	do_compile(coder, first, second);
+	pthread_mutex_lock(&coder->data_lock);
+	coder->last_compile = get_time();
+	pthread_mutex_unlock(&coder->data_lock);
 	pthread_mutex_lock(&first->lock);
 	first->last_release = get_time();
 	first->serving_ticket++;
