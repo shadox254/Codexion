@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:21 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/18 13:46:22 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/19 10:36:10 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int			init_all(t_data *data);
 int			args_verif(char **av);
 void		fill_rules(t_rules *rules, char **av);
 void		fifo(t_coder *coder);
-void		compiling(t_coder *coder);
+void		fifo_compiling(t_coder *coder);
 void		debugging_and_refactoring(t_coder *coder);
 void		print_all(t_data data);
 void		print_data(t_data data);
@@ -136,7 +136,10 @@ int			have_finish(t_coder *coder);
 void		print_dongles(t_data data);
 void		destroy_mutex(t_data *data);
 void		custom_sleep(long long time_in_ms, t_data *data);
-void	heap_insert(t_heap *heap, t_node new_node);
-t_node	heap_extract_min(t_heap *heap);
+void		heap_insert(t_heap *heap, t_node new_node);
+t_node		heap_extract_min(t_heap *heap);
+void		edf(t_coder *coder);
+void		set_order(t_coder *coder, t_dongle **first, t_dongle **second);
+t_node		*create_node(t_node *node, int coder_id, long long deadline);
 
 #endif

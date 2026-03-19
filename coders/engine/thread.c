@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 15:21:49 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/17 09:26:39 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/19 10:20:16 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	*coder_start(void *arg)
 	if (coder->data->is_fifo == 1)
 		fifo(coder);
 	else
-		return (NULL);
+		edf(coder);
 	return (NULL);
 }
 

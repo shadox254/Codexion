@@ -6,20 +6,19 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 16:07:27 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/18 09:51:58 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/19 10:50:34 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-static void	set_order(t_coder *coder, t_dongle **first, t_dongle **second);
 static void	get_tickets(t_dongle *first, t_dongle *second,
 				unsigned int *tickets);
 static void	do_compile(t_coder *coder, t_dongle *first, t_dongle *second);
 static void	wait_for_dongle(t_coder *coder, t_dongle *dongle1, t_dongle *dongle2,
 				unsigned int *tickets);
 
-void	compiling(t_coder *coder)
+void	fifo_compiling(t_coder *coder)
 {
 	t_dongle	*first;
 	t_dongle	*second;
@@ -39,20 +38,6 @@ void	compiling(t_coder *coder)
 	second->serving_ticket++;
 	pthread_cond_broadcast(&second->cond);
 	pthread_mutex_unlock(&second->lock);
-}
-
-static void	set_order(t_coder *coder, t_dongle **first, t_dongle **second)
-{
-	if (coder->left_dongle < coder->right_dongle)
-	{
-		*first = coder->left_dongle;
-		*second = coder->right_dongle;
-	}
-	else
-	{
-		*first = coder->right_dongle;
-		*second = coder->left_dongle;
-	}
 }
 
 static void	get_tickets(t_dongle *first, t_dongle *second, unsigned int *tickets)

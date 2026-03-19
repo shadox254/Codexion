@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 11:19:35 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/18 13:46:06 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/19 09:25:13 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	heap_insert(t_heap *heap, t_node new_node)
 	{
 		swap(&heap->nodes[parent_index], &heap->nodes[curr_index]);
 		curr_index = parent_index;
+		parent_index = (curr_index - 1) / 2;
 	}
 	heap->size++;
 }
@@ -42,18 +43,18 @@ t_node	heap_extract_min(t_heap *heap)
 	index = 0;
 	heap->nodes[0] = heap->nodes[heap->size - 1];
 	heap->size--;
+	left = (index * 2) + 1;
 	while (left < heap->size)
 	{
-		left = (index * 2) + 1;
 		right = (index * 2) + 2;
 		smallest_child_index = left;
 		if (right < heap->size && heap->nodes[right].deadline < heap->nodes[left].deadline)
 			smallest_child_index = right;
 		if (heap->nodes[index].deadline <= heap->nodes[smallest_child_index].deadline)
 			break ;
-		else
-			swap(&heap->nodes[index], &heap->nodes[smallest_child_index]);
+		swap(&heap->nodes[index], &heap->nodes[smallest_child_index]);
 		index = smallest_child_index;
+		left = (index * 2) + 1;
 	}
 	return (tmp);
 }

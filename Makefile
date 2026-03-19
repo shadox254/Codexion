@@ -6,13 +6,13 @@
 #    By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/06 11:16:38 by rruiz             #+#    #+#              #
-#    Updated: 2026/03/18 09:47:59 by rruiz            ###   ########.fr        #
+#    Updated: 2026/03/19 15:39:13 by rruiz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	codexion
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -pthread -g -fsanitize=thread
+CFLAGS	=	-Wall -Wextra -Werror -pthread -g
 RM		=	rm -rf
 
 INC_DIR	=	-I coders/include
@@ -29,10 +29,12 @@ SRC		=	main.c \
 			init/initialization.c \
 			parsing/args_verification.c \
 			parsing/rules_management.c \
+			schedulers/edf.c \
 			schedulers/fifo.c \
 			schedulers/fifo_utils.c \
 			utils/debug.c \
 			utils/error.c \
+			utils/heap_utils.c \
 			utils/time.c \
 			utils/utils.c
 
