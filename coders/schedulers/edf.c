@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 17:07:36 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/19 15:42:02 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/19 15:46:44 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ static void	edf_compiling(t_coder *coder)
 	put_heap(coder, first);
 	put_heap(coder, second);
 	do_compile(coder, first, second);
+	pthread_mutex_lock(&coder->data_lock);
+	coder->last_compile = get_time();
+	pthread_mutex_unlock(&coder->data_lock);
 	first->last_release = get_time();
 	pthread_cond_broadcast(&first->cond);
 	pthread_mutex_unlock(&first->lock);
@@ -53,7 +56,6 @@ static void	do_compile(t_coder *coder, t_dongle *dongle1, t_dongle *dongle2)
 	custom_sleep(coder->data->rules.time_to_compile, coder->data);
 	coder->nbr_of_compilations++;
 }
-
 
 static void	put_heap(t_coder *coder, t_dongle *dongle)
 {
