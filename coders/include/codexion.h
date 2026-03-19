@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:21 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/17 17:45:00 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/18 13:46:22 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_node
 typedef struct s_heap
 {
 	t_node			*nodes;
-	unsigned int	size;
+	int				size;
 }	t_heap;
 
 typedef struct s_rules
@@ -136,5 +136,7 @@ int			have_finish(t_coder *coder);
 void		print_dongles(t_data data);
 void		destroy_mutex(t_data *data);
 void		custom_sleep(long long time_in_ms, t_data *data);
+void	heap_insert(t_heap *heap, t_node new_node);
+t_node	heap_extract_min(t_heap *heap);
 
 #endif
