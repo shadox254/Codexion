@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:21 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/19 10:36:10 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/20 10:23:28 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define TAKE_DONGLE		"[%u] %i has taken a dongle\n"
-# define COMPILING			"[%u] %i is compiling\n"
-# define DEBUGGING			"[%u] %i is debugging\n"
-# define REFACTORING		"[%u] %i is refactoring\n"
-# define BURNOUT			"[%u] %i burned out\n"
+# define TAKE_DONGLE		"%u %i has taken a dongle\n"
+# define COMPILING			"%u %i is compiling\n"
+# define DEBUGGING			"%u %i is debugging\n"
+# define REFACTORING		"%u %i is refactoring\n"
+# define BURNOUT			"%u %i burned out\n"
 
 # define USAGE_ERROR		"Error, invalid arguments. Usage: \"./codexion \
 number_of_coders time_to_burnout time_to_compile time_to_debug \
@@ -35,6 +35,14 @@ must be int higher than 0."
 
 # define LAST_ARGS_ERROR	"Error, invalid argument, the eighth argument \
 must be either “fifo/FIFO” or “edf/EDF\"."
+
+# define CODER_ALONE_ERROR	"Error: A coder can't code alone. Please find \
+them a friend."
+
+# define MAX_CODERS_NBR 1000
+
+# define CODERS_NBR_ERROR	"Error, the number of coders is too high, the \
+maximum is 1000."
 
 # define C_MALLOC_ERROR		"Error, Malloc failed for coders."
 
@@ -112,33 +120,62 @@ typedef struct s_data
 	pthread_mutex_t	lock;
 }	t_data;
 
+/* CODERS */
 void		codexion(char **av);
+
+	/* ENGINE */
+		/* ACTION */
 void		print_action(t_coder *coder, char *action);
+		/* MONITORING */
+void		*monitoring(void *arg);
+int			is_simu(t_data *data);
+		/* MUTEX */
+void		init_mutex(t_data *data);
+void		destroy_mutex(t_data *data);
+		/* THREAD */
 void		init_thread(t_data *data);
+
+	/* INIT */
+		/* DATA */
 int			init_data(t_data *data, char **av);
+		/* INITIALIZATION */
 int			init_all(t_data *data);
+
+	/* PARSING */
+		/* ARGS_VERIFICATION */
 int			args_verif(char **av);
-void		fill_rules(t_rules *rules, char **av);
+		/* RULES_MANAGEMENT */
+int			fill_rules(t_rules *rules, char **av);
+
+	/* SCHEDULERS */
+		/* EDF */
+void		edf(t_coder *coder);
+		/* FIFO */
 void		fifo(t_coder *coder);
-void		fifo_compiling(t_coder *coder);
 void		debugging_and_refactoring(t_coder *coder);
+
+/* UTILS/DEBUG */
 void		print_all(t_data data);
 void		print_data(t_data data);
 void		print_rules(t_rules rules);
 void		print_coders(t_data data);
 void		print_error(char *str);
+
+		/* EDF_UTILS */
+void		edf_compiling(t_coder *coder);
+		/* ERROR */
 void		free_data(t_data *data);
-long long	get_time(void);
-void		init_mutex(t_data *data);
-void		*monitoring(void *arg);
-int			is_simu(t_data *data);
-int			have_finish(t_coder *coder);
 void		print_dongles(t_data data);
-void		destroy_mutex(t_data *data);
-void		custom_sleep(long long time_in_ms, t_data *data);
+		/* FIFO_UTILS */
+void		fifo_compiling(t_coder *coder);
+		/* HEAP_UTILS */
 void		heap_insert(t_heap *heap, t_node new_node);
 t_node		heap_extract_min(t_heap *heap);
-void		edf(t_coder *coder);
+		/* TIME */
+long long	get_time(void);
+void		custom_sleep(long long time_in_ms, t_data *data);
+		/* UTILS */
+int			have_finish(t_coder *coder);
 void		set_order(t_coder *coder, t_dongle **first, t_dongle **second);
 t_node		*create_node(t_node *node, int coder_id, long long deadline);
 

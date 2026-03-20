@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:47:15 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/17 17:56:26 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/20 09:36:29 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ static int	init_dongle(t_dongle *dongle, t_data *data)
 	dongle->serving_ticket = 0;
 	dongle->ticket_counter = 0;
 	dongle->last_release = 0;
-	dongle->heap.nodes = malloc(sizeof(t_node) * dongle->data->rules.number_of_coders);
+	dongle->heap.nodes = malloc(sizeof(t_node)
+			* dongle->data->rules.number_of_coders);
 	if (!dongle->heap.nodes)
 	{
 		print_error(N_MALLOC_ERROR);

@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 16:07:27 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/19 10:50:34 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/20 09:35:21 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void	get_tickets(t_dongle *first, t_dongle *second,
 				unsigned int *tickets);
 static void	do_compile(t_coder *coder, t_dongle *first, t_dongle *second);
-static void	wait_for_dongle(t_coder *coder, t_dongle *dongle1, t_dongle *dongle2,
-				unsigned int *tickets);
+static void	wait_for_dongle(t_coder *coder, t_dongle *dongle1,
+				t_dongle *dongle2, unsigned int *tickets);
 
 void	fifo_compiling(t_coder *coder)
 {
@@ -40,7 +40,8 @@ void	fifo_compiling(t_coder *coder)
 	pthread_mutex_unlock(&second->lock);
 }
 
-static void	get_tickets(t_dongle *first, t_dongle *second, unsigned int *tickets)
+static void	get_tickets(t_dongle *first, t_dongle *second,
+	unsigned int *tickets)
 {
 	pthread_mutex_lock(&first->lock);
 	tickets[0] = first->ticket_counter;
@@ -81,9 +82,11 @@ static void	wait_for_dongle(t_coder *coder, t_dongle *dongle1,
 	d2_cooldown = (dongle2->last_release);
 	pthread_mutex_unlock(&dongle2->lock);
 	if (d1_cooldown > d2_cooldown)
-		wait_time = d1_cooldown + coder->data->rules.dongle_cooldown - get_time();
+		wait_time = d1_cooldown + coder->data->rules.dongle_cooldown
+			- get_time();
 	else
-		wait_time = d2_cooldown + coder->data->rules.dongle_cooldown - get_time();
+		wait_time = d2_cooldown + coder->data->rules.dongle_cooldown
+			- get_time();
 	if (wait_time > 0)
 		custom_sleep(wait_time, coder->data);
 	print_action(coder, TAKE_DONGLE);
