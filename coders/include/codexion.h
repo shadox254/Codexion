@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:21 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/20 10:58:06 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/20 16:06:23 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ must be either “fifo” or “edf\"."
 # define CODER_ALONE_ERROR	"Error: A coder can't code alone. Please find \
 them a friend."
 
-# define MAX_CODERS_NBR 1000
+# define MAX_CODERS_NBR 300
 
 # define CODERS_NBR_ERROR	"Error, the number of coders is too high, the \
-maximum is 1000."
+maximum is 300."
 
 # define C_MALLOC_ERROR		"Error, Malloc failed for coders."
 
@@ -150,6 +150,7 @@ int			fill_rules(t_rules *rules, char **av);
 	/* SCHEDULERS */
 		/* EDF */
 void		edf(t_coder *coder);
+void		edf_compiling(t_coder *coder);
 		/* FIFO */
 void		fifo(t_coder *coder);
 void		debugging_and_refactoring(t_coder *coder);
@@ -162,7 +163,9 @@ void		print_coders(t_data data);
 void		print_error(char *str);
 
 		/* EDF_UTILS */
-void		edf_compiling(t_coder *coder);
+int			do_compile_edf(t_coder *coder, t_dongle *dongle1,
+				t_dongle *dongle2);
+void		put_heap(t_coder *coder, t_dongle *dongle);
 		/* ERROR */
 void		free_data(t_data *data);
 void		print_dongles(t_data data);
