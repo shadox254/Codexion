@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 13:53:03 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/20 09:43:56 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/20 10:52:29 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,11 @@ t_node	*create_node(t_node *node, int coder_id, long long deadline)
 	node->coder_id = coder_id;
 	node->deadline = deadline;
 	return (node);
+}
+
+int	ft_tolower(int c)
+{
+	if (c >= 'A' && c <= 'Z')
+		c += 32;
+	return (c);
 }

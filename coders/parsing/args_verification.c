@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:31 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/16 16:57:44 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/20 10:56:28 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	is_digit(int c);
 static int	is_int(char *n);
+static int	is_fifo(char *last_arg);
+static int	is_edf(char *last_arg);
 
 int	args_verif(char **av)
 {
@@ -34,8 +36,7 @@ int	args_verif(char **av)
 		}
 		i++;
 	}
-	if ((strcmp(av[8], "fifo") && strcmp(av[8], "edf"))
-		&& (strcmp(av[8], "FIFO") && strcmp(av[8], "EDF")))
+	if (is_fifo(av[8]) == 0 && is_edf(av[8]) == 0)
 	{
 		print_error(LAST_ARGS_ERROR);
 		return (0);
@@ -68,5 +69,41 @@ static int	is_int(char *n)
 	}
 	if (nb > INT_MAX)
 		return (0);
+	return (1);
+}
+
+static int	is_fifo(char *last_arg)
+{
+	char	*fifo;
+	int		i;
+
+	fifo = "fifo";
+	i = 0;
+	if (strlen(last_arg) != strlen(fifo))
+		return (0);
+	while (fifo[i])
+	{
+		if (ft_tolower(last_arg[i]) != fifo[i])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static int	is_edf(char *last_arg)
+{
+	char	*edf;
+	int		i;
+
+	edf = "edf";
+	i = 0;
+	if (strlen(last_arg) != strlen(edf))
+		return (0);
+	while (edf[i])
+	{
+		if (ft_tolower(last_arg[i]) != edf[i])
+			return (0);
+		i++;
+	}
 	return (1);
 }

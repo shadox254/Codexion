@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:21 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/20 10:23:28 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/20 10:58:06 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ time_to_refactor number_of_compiles_required dongle_cooldown scheduler\"."
 must be int higher than 0."
 
 # define LAST_ARGS_ERROR	"Error, invalid argument, the eighth argument \
-must be either “fifo/FIFO” or “edf/EDF\"."
+must be either “fifo” or “edf\"."
 
 # define CODER_ALONE_ERROR	"Error: A coder can't code alone. Please find \
 them a friend."
@@ -178,5 +178,6 @@ void		custom_sleep(long long time_in_ms, t_data *data);
 int			have_finish(t_coder *coder);
 void		set_order(t_coder *coder, t_dongle **first, t_dongle **second);
 t_node		*create_node(t_node *node, int coder_id, long long deadline);
+int			ft_tolower(int c);
 
 #endif
