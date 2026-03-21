@@ -1,0 +1,50 @@
+# Projet : Codexion
+Contexte : Projet de type "Philosophers" de l'école 42, axé sur la concurrence, les threads et les mutex.
+
+## Règles Globales
+* Langage : C strict, respect de la Norme, interdiction d'utiliser des variables globales.
+* Stabilité : Aucun crash inattendu (segfault, bus error, double free, etc.).
+* Mémoire : Aucune fuite de mémoire tolérée, tout ce qui est alloué sur la heap doit être libéré.
+* Compilation : Makefile obligatoire avec les règles $(NAME), all, clean, fclean, re.
+* Flags de compilation : -Wall -Wextra -Werror -pthread en utilisant cc, sans relink inutile.
+* Fonctions autorisées : pthread_create, pthread_join, pthread_mutex_init, pthread_mutex_lock, pthread_mutex_unlock, pthread_mutex_destroy, pthread_cond_init, pthread_cond_wait, pthread_cond_timedwait, pthread_cond_broadcast, pthread_cond_destroy, gettimeofday, usleep, write, malloc, free, printf, fprintf, strcmp, strlen, atoi, memset.
+* Libft : Non autorisée.
+
+## Mécanique de la Simulation
+* Des codeurs sont assis en cercle autour d'un compilateur quantique partagé.
+* Un "dongle" USB est posé entre chaque paire de codeurs.
+* Cycle d'action strict : compiler -> débugger -> refactoriser -> recommencer.
+* Pour compiler, un codeur a besoin de deux dongles en même temps (un dans chaque main).
+* Les codeurs ne communiquent pas entre eux et ne connaissent pas l'état des autres.
+* Fin de simulation : Un codeur fait un "burnout" (meurt de faim) OU tous les codeurs ont compilé le nombre de fois requis.
+
+## Arguments du Programme (tous obligatoires)
+1. number_of_coders : Nombre de codeurs (et de dongles).
+2. time_to_burnout (ms) : Temps maximum sans commencer à compiler avant qu'un codeur fasse un burnout.
+3. time_to_compile (ms) : Temps passé à compiler en tenant deux dongles.
+4. time_to_debug (ms) : Temps passé à débugger.
+5. time_to_refactor (ms) : Temps passé à refactoriser.
+6. number_of_compiles_required : Condition d'arrêt optionnelle si tous les codeurs atteignent ce quota.
+7. dongle_cooldown (ms) : Temps d'indisponibilité d'un dongle après avoir été relâché.
+8. scheduler : Politique d'attribution des dongles en cas de demandes multiples. Doit être "fifo" (premier arrivé, premier servi) ou "edf" (Earliest Deadline First, priorité à celui dont le temps avant burnout est le plus court). L'implémentation d'une file de priorité (heap) est requise.
+
+## Contraintes Techniques et Concurrence
+* Chaque codeur est un thread indépendant (pthread_create).
+* Chaque dongle doit être protégé par un mutex (pthread_mutex_t) pour éviter la duplication.
+* L'utilisation de variables de condition (pthread_cond_t) est autorisée pour les files d'attente.
+* Un thread "monitor" séparé est obligatoire pour détecter les burnouts avec précision et stopper la simulation.
+* Le log d'un burnout doit être affiché au maximum 10 ms après l'heure réelle du burnout.
+* L'affichage (logs) doit être protégé par un mutex pour éviter l'entrelacement des lignes.
+* Prévention de la famine (starvation) garantie sous le scheduler "edf".
+
+## Format des Logs Exigé
+* timestamp_in_ms X has taken a dongle
+* timestamp_in_ms X is compiling
+* timestamp_in_ms X is debugging
+* timestamp_in_ms X is refactoring
+* timestamp_in_ms X burned out
+
+## Exigences du README.md
+* Ligne 1 : "This project has been created as part of the 42 curriculum by <login1>..." en italique.
+* Sections obligatoires : Description, Instructions, Resources, Blocking cases handled (deadlocks, starvation, cooldown, monitor), Thread synchronization mechanisms (explication des primitives utilisées).
+* Doit être écrit en anglais.

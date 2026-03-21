@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 09:32:05 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/20 15:46:36 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/21 10:12:55 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ static int	wait_for_dongles(t_coder *coder, t_dongle *dongle1,
 		{
 			if (is_cooldown_ok(coder, dongle1, dongle2))
 				break ;
-			pthread_mutex_unlock(&dongle1->lock);
-			pthread_mutex_unlock(&dongle2->lock);
-			custom_sleep(1, coder->data);
+			sleep_for_cooldown(coder, dongle1, dongle2);
 			continue ;
 		}
 		check_prio(coder, dongle1, dongle2);
