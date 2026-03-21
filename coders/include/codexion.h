@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:21 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/21 10:24:05 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/21 11:01:46 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define TAKE_DONGLE		"%u %i has taken a dongle\n"
-# define COMPILING			"%u %i is compiling\n"
-# define DEBUGGING			"%u %i is debugging\n"
-# define REFACTORING		"%u %i is refactoring\n"
-# define BURNOUT			"%u %i burned out\n"
+# define TAKE_DONGLE		"%lli %i has taken a dongle\n"
+# define COMPILING			"%lli %i is compiling\n"
+# define DEBUGGING			"%lli %i is debugging\n"
+# define REFACTORING		"%lli %i is refactoring\n"
+# define BURNOUT			"%lli %i burned out\n"
 
 # define USAGE_ERROR		"Error, invalid arguments. Usage: \"./codexion \
 number_of_coders time_to_burnout time_to_compile time_to_debug \
