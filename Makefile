@@ -6,13 +6,13 @@
 #    By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/06 11:16:38 by rruiz             #+#    #+#              #
-#    Updated: 2026/03/20 09:51:21 by rruiz            ###   ########.fr        #
+#    Updated: 2026/03/21 10:26:08 by rruiz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	codexion
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -pthread -g
+CFLAGS	=	-Wall -Wextra -Werror -pthread
 RM		=	rm -rf
 
 INC_DIR	=	-I coders/include

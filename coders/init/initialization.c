@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:47:15 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/20 09:36:29 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/21 10:29:31 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	init_all(t_data *data)
 	if (!data->coders)
 	{
 		print_error(C_MALLOC_ERROR);
+		free_data(data);
 		return (0);
 	}
 	while (count < data->rules.number_of_coders)
@@ -61,6 +62,7 @@ static int	init_dongle(t_dongle *dongle, t_data *data)
 	if (!dongle->heap.nodes)
 	{
 		print_error(N_MALLOC_ERROR);
+		free_data(data);
 		return (0);
 	}
 	dongle->heap.size = 0;

@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:16:21 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/20 17:35:35 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/21 10:24:05 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ t_node		heap_extract_min(t_heap *heap);
 		/* TIME */
 long long	get_time(void);
 void		custom_sleep(long long time_in_ms, t_data *data);
+void		sleep_for_cooldown(t_coder *coder, t_dongle *d1, t_dongle *d2);
 		/* UTILS */
 int			have_finish(t_coder *coder);
 void		set_order(t_coder *coder, t_dongle **first, t_dongle **second);
