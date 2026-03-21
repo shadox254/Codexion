@@ -6,7 +6,7 @@
 /*   By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 16:07:27 by rruiz             #+#    #+#             */
-/*   Updated: 2026/03/20 09:35:21 by rruiz            ###   ########.fr       */
+/*   Updated: 2026/03/21 10:51:53 by rruiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ void	fifo_compiling(t_coder *coder)
 
 	set_order(coder, &first, &second);
 	do_compile(coder, first, second);
-	pthread_mutex_lock(&coder->data_lock);
-	coder->last_compile = get_time();
-	pthread_mutex_unlock(&coder->data_lock);
 	pthread_mutex_lock(&first->lock);
 	first->last_release = get_time();
 	first->serving_ticket++;
@@ -59,6 +56,9 @@ static void	do_compile(t_coder *coder, t_dongle *first, t_dongle *second)
 
 	get_tickets(first, second, tickets);
 	wait_for_dongle(coder, first, second, tickets);
+	pthread_mutex_lock(&coder->data_lock);
+	coder->last_compile = get_time();
+	pthread_mutex_unlock(&coder->data_lock);
 	print_action(coder, COMPILING);
 	custom_sleep(coder->data->rules.time_to_compile, coder->data);
 	coder->nbr_of_compilations++;

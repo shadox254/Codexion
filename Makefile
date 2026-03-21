@@ -6,7 +6,7 @@
 #    By: rruiz <rruiz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/06 11:16:38 by rruiz             #+#    #+#              #
-#    Updated: 2026/03/21 10:26:08 by rruiz            ###   ########.fr        #
+#    Updated: 2026/03/21 10:57:53 by rruiz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,20 +42,28 @@ SRC		=	main.c \
 SRCS	=	$(MAIN) $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
+GREEN			=	\033[32m
+BLUE			=	\033[34m
+RESET			=	\033[0m
+
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@echo "$(BLUE)codexion compiled$(RESET)"
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INC_DIR) -c $< -o $@
+	@echo "$(GREEN)$< compiled$(RESET)"
+	@$(CC) $(CFLAGS) $(INC_DIR) -c $< -o $@
 
 clean:
-	$(RM) $(OBJ_DIR)
+	@$(RM) $(OBJ_DIR)
+	@echo "$(BLUE)Objects cleaned$(RESET)"
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
+	@echo "$(BLUE)Executable cleaned$(RESET)"
 
 re: fclean all
 
